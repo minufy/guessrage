@@ -1,9 +1,5 @@
-local filters = {
-    enemy = {"enemy"},
-}
-
 local dists = {
-    enemy = TILE_SIZE*0.5,
+    spike = TILE_SIZE*0.7,
 }
 
 return function (Player)
@@ -12,10 +8,18 @@ return function (Player)
     end
 
     function Player:update_collision(dt)
-        Game:dist(self, filters.enemy, self.col_enemy, dists.enemy)
+        Game:col(self, FILTERS.trigger_zone, self.col_trigger_zone)
+        Game:dist(self, FILTERS.spike, self.col_spike, dists.spike)
+        if self.y > Game:get_height() then
+           	self:die()
+        end
     end
 
-    function Player:col_enemy(other)
+    function Player:col_trigger_zone(other)
+        Game:activate_trigger_zone(other)
+    end
+
+    function Player:col_spike(other)
         self:die()
     end
 

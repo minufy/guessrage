@@ -16,18 +16,21 @@ function Player.new(data)
     self:init_draw()
     self:init_movement()
 
-    self.cam_x = self.x+self.w/2
-    self.cam_y = self.y+self.h/2
-    Camera:offset(Res.w/2, Res.h/2)
+    self:update_cam()
+    Camera:offset(Res.w/2, 0)
     Camera:set(self.cam_x, self.cam_y)
     Camera:snap_back()
     return self
 end
 
+function Player:update_cam()
+    self.cam_x = math.max(TILE_SIZE+Res.w/2, self.x+self.w/2)
+    self.cam_y = Game:get_height()-Res.h
+end
+
 function Player:update(dt)
     -- follow player
-    self.cam_x = self.x+self.w/2
-    self.cam_y = self.y+self.h/2
+    self:update_cam()
 
     self:update_collision(dt)
     self:update_draw(dt)

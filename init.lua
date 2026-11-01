@@ -11,6 +11,7 @@ return function ()
     -- Input.up = Input.new({"up", "w"})
     Input.down = Input.new({"down", "s"})
     Input.jump = Input.new({"space", "up", "w"})
+    Input.restart = Input.new({"r"})
 
     Audio.new("jump")
 
@@ -20,6 +21,11 @@ return function ()
 
     COLORS = {
         bg = Color.hex("#3C5D8D"),
+    }
+
+    FILTERS = {
+        trigger_zone = {"trigger_zone"},
+        spike = {"spike"},
     }
 
     TILE_SIZE = 16
